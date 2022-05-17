@@ -1,4 +1,4 @@
-var numeroUno = 1;
+/* var numeroUno = 1;
 let numeroDos=2;
 
 numeroUno=5;
@@ -26,9 +26,9 @@ console.log(typeof hijos);
 console.log(typeof zapatos);
 console.log (Number("asd"))
 console.log (typeof Number("asd"));
-
+*/
 //Truty Falsy
-
+/*
 console.log("\n")
 
 if (true === true){ //triple igual
@@ -115,3 +115,27 @@ edadAdrian +=1
 
 console.log(edadAdrian)
 console.log(edadVicente)
+
+*/
+
+let notas = {
+    total: 10
+}
+let notasDos = notas;
+
+notasDos.total+=1
+console.log(notas);
+console.log(notasDos);
+
+notas.total+=1
+console.log(notas);
+console.log(notasDos);
+
+let notasTres = Object.assign({}, notas)
+
+notasTres.total+=1;
+console.log(notas);
+console.log(notasDos);
+console.log(notasTres);
+
+
