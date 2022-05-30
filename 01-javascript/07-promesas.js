@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-function promesaEsPar(numero){
+function promesaEsPar(numero) {
     const miPrimerPromesa = new Promise(
         (
             resolve,
@@ -8,7 +8,7 @@ function promesaEsPar(numero){
         ) => {
             if (numero % 2 === 0) {
                 resolve(numero);
-            }else {
+            } else {
                 reject("No es par")
             }
         }
@@ -16,19 +16,37 @@ function promesaEsPar(numero){
     return miPrimerPromesa
 }
 
-promesaEsPar(3)
+function promesaElevarAlCuadrado(numero) {
+    const miSegundaPromesa = new Promise(
+        (resolve) => {
+            const numeroElevadoAlCuadrado = Math.pow(numero, 2);
+            resolve(numeroElevadoAlCuadrado);
+        }
+    );
+    return miSegundaPromesa;
+}
+
+
+promesaEsPar(4)
     .then(
-        (respuesta)=>{
-            console.log('Respuesta', respuesta)
+        (numeroPar) => {
+            return promesaElevarAlCuadrado(numeroPar)
+        }
+    )
+    .then(
+        (numeroParElevadoAlCuadrado)=>{
+            console.log("numeroParElevadoAlCuadrado",numeroParElevadoAlCuadrado)
         }
     )
     .catch(
-        (error)=>{
-            console.error("Error",error)
+        (error) => {
+            console.error("Error", error)
         }
     )
     .finally(
-        ()=>{
+        () => {
             console.info("Fin")
         }
     )
+
+

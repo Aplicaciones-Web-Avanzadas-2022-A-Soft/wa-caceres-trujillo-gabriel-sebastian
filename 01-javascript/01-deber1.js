@@ -1,21 +1,45 @@
 const fs = require('fs')
 
+function ejercicio(
+    pathPrimerArchivo,
+    pathSegundoArchivo,
+    pathNuevoArchivo
+) {
+    return new Promise((resolve, reject) => {
+            fs.readFile(
+                pathPrimerArchivo,
+                'utf-8',
+                (errorPrimer, contenidoPrimer) => {
+                    if (errorPrimer) {
+                        reject(errorPrimer)
+                    } else {
+                        fs.readFile(
+                            pathSegundoArchivo,
+                            'utf-8',
+                            (errorSegundo, contenidoSegundo) => {
+                                if (errorSegundo) {
+                                    reject(errorSegundo)
+                                } else {
+                                    console.log(contenidoPrimer, contenidoSegundo);
+                                    fs.writeFile(
+                                        pathNuevoArchivo,
+                                        contenidoPrimer.concat("\n", contenidoSegundo),
+                                        (errorEscritura) => {
+                                            if (errorEscritura) {
+                                                reject(errorEscritura)
+                                            } else{
+                                                resolve("Terminado satisfactoriamente")
+                                            }
+                                        }
+                                    );
+                                }
+                            }
+                        );
+                    }
 
-var promise1 = fs.promises.readFile('./06-ejemplo.txt','utf-8')
+                }
+            );
+        }
+    )
 
-var promise2 = fs.promises.readFile('./01-variables.js','utf-8')
-
-
-var contenido = ""
-Promise.all([promise1, promise2])
-    .then((result) =>{
-        contenido=result[0]+result[1]
-        console.log(contenido)
-        fs.promises.writeFile('./06-nuevo-archivo.txt', contenido, 'utf-8')
-    });
-
-
-
-//'./06-ejemplo.txt', './01-variables.js', './06-nuevo-archivo.txt'
-
-
+}
