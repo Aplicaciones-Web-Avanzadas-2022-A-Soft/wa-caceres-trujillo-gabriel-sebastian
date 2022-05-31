@@ -1,0 +1,15 @@
+var nombre = "Adrian";
+var nombre2 = "Adrian2";
+nombre = "Vicente";
+var edad = 32;
+var casado = false;
+var fecha = new Date();
+var sueldo;
+sueldo = 12.4;
+var cambiante = 2;
+cambiante = "2";
+cambiante = true;
+cambiante = function () { return 2; };
+var multiple;
+multiple = "aaaa";
+multiple = 2;
