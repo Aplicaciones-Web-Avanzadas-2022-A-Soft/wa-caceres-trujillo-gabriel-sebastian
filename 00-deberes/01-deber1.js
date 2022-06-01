@@ -43,3 +43,5 @@ function ejercicio(
     )
 
 }
+
+ejercicio(".\texto1.txt",".\texto2.txt",".\nuevo.txt");
