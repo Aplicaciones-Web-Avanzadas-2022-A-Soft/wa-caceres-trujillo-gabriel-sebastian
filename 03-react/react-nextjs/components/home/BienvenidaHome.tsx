@@ -1,6 +1,7 @@
-const BienvenidaHome=()=>(
+const BienvenidaHome = () => (
     <>
-        <h1>Bienvenida Home</h1>
+        <h1>Bienvenida home</h1>
     </>
 )
+
 export default BienvenidaHome
