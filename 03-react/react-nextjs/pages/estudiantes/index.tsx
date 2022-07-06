@@ -1,9 +1,13 @@
 import Layout from "../../components/Layout";
 import {useEffect, useState} from "react";
+import {TodosHttp} from "../../functions/http/todos.http";
 
 export interface EstudianteInterface {
-    id: number;
-    nombre: string;
+    id?: number;
+    nombre?: string;
+    userID?: number;
+    title?: string;
+    completed?: boolean;
 }
 
 export default function Estudiantes() {
@@ -11,21 +15,27 @@ export default function Estudiantes() {
     useEffect( // Iniciar el componente
         () => {
             // consulta API ...
-            const arregloConsultado = [
-                {id: 1, nombre: 'Adrian'},
-                {id: 2, nombre: 'Vicente'},
-            ] as EstudianteInterface[];
-            setArregloEstudiantes([...arregloEstudiantes, ...arregloConsultado])
+            consultarTodos();
         },
         []
     )
+
+    const consultarTodos = async () =>{
+        const resultado = await TodosHttp();
+        setArregloEstudiantes([...arregloEstudiantes,...resultado])
+    }
 
     return (
         <Layout title={'Estudiantes'}>
             <ul>
                 {arregloEstudiantes.map(
                     (estudiante) => {
-                        return (<li key={estudiante.id}>{estudiante.nombre}</li>)
+                        return (<li key={estudiante.id}>
+                            {estudiante.id}-
+                            <a href={'/estudiantes/' + estudiante.id}>
+                                {estudiante.title}
+                            </a>
+                        </li>)
                     }
                 )}
             </ul>

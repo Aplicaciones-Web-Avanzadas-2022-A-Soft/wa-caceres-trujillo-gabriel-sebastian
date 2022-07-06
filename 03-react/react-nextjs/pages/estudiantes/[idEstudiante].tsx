@@ -3,14 +3,13 @@ import Layout from "../../components/Layout";
 import {GetStaticPaths, GetStaticProps} from "next";
 import {sampleUserData} from "../../utils/sample-data";
 import {EstudianteInterface} from "./index";
+import {TodosHttp} from "../../functions/http/todos.http";
 
 export default function IdEstudiante(props:
 { estudiante: EstudianteInterface }) {
-    console.log('Estudiante en cliente', props.estudiante)
-    console.log('propiedades', props);
     return (
         <Layout title={'Id estudiante'}>
-            Hola id estudiante
+            Hola {props.estudiante.title}
         </Layout>
     )
 }
@@ -35,10 +34,8 @@ export const getStaticProps: GetStaticProps = async (
     try {
         // fetch
         const id = params?.idEstudiante
-        console.log('Este id encontramos', id);
-        const estudiante = {id: id, nombre: 'Adrian'}
-        console.log('Consultamos ese estudiante', estudiante);
-        return {props: {estudiante, estaActivo:true}}
+        const resultado = await TodosHttp(id as string);
+        return {props: {estudiante:resultado}}
     } catch (err: any) {
         return {props: {errors: err.message}}
     }
