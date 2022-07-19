@@ -1,5 +1,6 @@
 const fs = require('fs')
 
+
 function ejercicio(
     pathPrimerArchivo,
     pathSegundoArchivo,

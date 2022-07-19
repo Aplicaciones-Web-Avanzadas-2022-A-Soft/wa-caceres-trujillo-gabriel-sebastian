@@ -82,12 +82,23 @@ const MiPerfilPage = () => {
 
             <div>{ estaLogeado ?
                 <LoginHome propiedadesImagen={
+<<<<<<< HEAD
     {
         width: 300,
         height: 150,
         urlImagen: 'https://media.istockphoto.com/photos/plaza-de-san-francisco-in-old-town-quito-picture-id975466144?k=20&m=975466144&s=612x612&w=0&h=fgPROePmDD29FV8Bx2z-X7ISUfytIplCjvuda-0euII='
     }
 } color={'green'} backgroundColor={'black'}/> :
+=======
+                    {
+                    width: 300,
+                    height: 150,
+                    urlImagen: 'https://media.istockphoto.com/photos/plaza-de-san-francisco-in-old-town-quito-picture-id975466144?k=20&m=975466144&s=612x612&w=0&h=fgPROePmDD29FV8Bx2z-X7ISUfytIplCjvuda-0euII='
+                    }
+                } color={'green'} backgroundColor={'black'}>
+
+                </LoginHome> :
+>>>>>>> desarrollo
                 <BienvenidaHome></BienvenidaHome>
             }</div>
 

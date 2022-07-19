@@ -1,4 +1,5 @@
 /* styles/global.css */
+<<<<<<< HEAD
 body{
     background-color: white;
 }
@@ -6,3 +7,8 @@ body{
 @tailwind components;
 @tailwind utilities;
 
+=======
+body {
+    background-color: beige;
+}
+>>>>>>> desarrollo

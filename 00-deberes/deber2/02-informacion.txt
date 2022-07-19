@@ -1,0 +1,1 @@
+[{"nombre":"SistemaSolar","radio":695,"nombreSol":"Sol","satelitesNaturales":218,"planetas":[{"nombre":"Tierra","radioEcuatorial":6371,"duracionDia":24,"lunas":1,"esHabitable":true},{"nombre":"Marte","radioEcuatorial":8000,"duracionDia":40,"lunas":6,"esHabitable":false}]}]
