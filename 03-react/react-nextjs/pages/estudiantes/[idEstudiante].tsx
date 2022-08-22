@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async (
     {params}
 ) => {
     try {
-        // fetch
+         // fetch
         const id = params?.idEstudiante
         const resultado = await TodosHttp(id as string);
         return {props: {estudiante:resultado}}

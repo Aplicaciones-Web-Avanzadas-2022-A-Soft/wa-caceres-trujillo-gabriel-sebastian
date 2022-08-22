@@ -5,7 +5,7 @@ import {TodosHttp} from "../../functions/http/todos.http";
 export interface EstudianteInterface {
     id?: number;
     nombre?: string;
-    userID?: number;
+    userId?: number;
     title?: string;
     completed?: boolean;
 }
@@ -19,10 +19,11 @@ export default function Estudiantes() {
         },
         []
     )
-
-    const consultarTodos = async () =>{
+    const consultarTodos = async () => {
         const resultado = await TodosHttp();
-        setArregloEstudiantes([...arregloEstudiantes,...resultado])
+        setArregloEstudiantes([
+            ...arregloEstudiantes,
+            ...resultado]);
     }
 
     return (
@@ -31,7 +32,7 @@ export default function Estudiantes() {
                 {arregloEstudiantes.map(
                     (estudiante) => {
                         return (<li key={estudiante.id}>
-                            {estudiante.id}-
+                            {estudiante.id} -
                             <a href={'/estudiantes/' + estudiante.id}>
                                 {estudiante.title}
                             </a>

@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import {Toaster} from "react-hot-toast";
 
 type Props = {
     children?: ReactNode
@@ -15,8 +16,7 @@ const Layout = ({children, title = 'This is the default title'}: Props) => (
             <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
                   integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-                  crossOrigin="anonymous"
-            />
+                  crossOrigin="anonymous"></link>
             <link
                 rel="stylesheet"
                 href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -53,9 +53,13 @@ const Layout = ({children, title = 'This is the default title'}: Props) => (
                 | {' '} <Link href="/estudiantes">
                     <a>Estudiantes</a>
                 </Link>{' '}
-                |{' '} <Link href="/formulario">
+                | {' '} <Link href="/formulario">
                 <a>Formulario</a>
-            </Link>{' '}
+                </Link>{' '}
+                {/* npm i socket.io-client */}
+                | {' '} <Link href="/websocket">
+                <a>Websocket</a>
+                </Link>{' '}
             </nav>
         </header>
         <div className="container">
@@ -65,6 +69,10 @@ const Layout = ({children, title = 'This is the default title'}: Props) => (
             <hr/>
             <span>I'm here to stay (Footer)</span>
         </footer>
+        <Toaster
+            position="top-center"
+            reverseOrder={false}
+        />
     </div>
 )
 

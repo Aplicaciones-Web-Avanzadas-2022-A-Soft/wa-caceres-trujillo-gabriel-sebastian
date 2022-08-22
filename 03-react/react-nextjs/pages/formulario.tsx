@@ -1,47 +1,50 @@
 import Layout from "../components/Layout";
 import {useState} from "react";
-
 import {useForm, Controller} from "react-hook-form";
-
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {List, ListInput} from "konsta/react";
-import {Accessibility} from "@mui/icons-material";
+import {toast} from "react-hot-toast";
+import {
+    List,
+    ListInput
+} from 'konsta/react';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
 
 type FormularioEjemplo = {
     nombre: string;
     estadoCivil: string;
-    TvShow:string;
 }
 
 export default function Formulario() {
+    const [nombre, setNombre] = useState('Adrian');
+    // const [numuno, numdos] = [ 1,2]; // Importa el orden
+    // const {a} = {a:1,b:2,c:3} as any; // importa el nombre del objeto
 
-    const [nombre, setNombre] = useState('');
-
-    const {control, register, handleSubmit, formState: {errors, isValid}} = useForm<FormularioEjemplo>({
-        defaultValues: {
-            nombre: 'A',
-            estadoCivil: ""
-        },
-        mode: "onTouched"
-    })
-
+    const {control, register, handleSubmit, formState: {errors, isValid}} = useForm<FormularioEjemplo>(
+        {
+            defaultValues: {
+                nombre: 'Vicente',
+                estadoCivil: '',
+            },
+            mode: 'all'
+        }
+    )
     const controlarSubmit = (eventoSubmit) => {
-        eventoSubmit.preventDefault()
+        eventoSubmit.preventDefault();
         console.log('Submit', eventoSubmit);
-        console.log('nombre', nombre)
+        console.log('nombre', nombre);
     }
-
     const controlarSubmitRHF = (data) => {
-        console.log("data", data)
+        console.log('data', data);
+        toast('Good Job!', {
+            icon: '🐿',
+        });
+        toast.success('Bien');
+        toast.error('Bien');
     }
-
     return (
         <>
             <Layout title="Formulario">
-
-                <h1>Form con Material UI</h1>
-
-                <h1>React con Hook Form</h1>
+                <h1>Formulario con react Hook Form</h1>
                 <form onSubmit={handleSubmit(controlarSubmitRHF)}>
                     <div className="mb-3">
                         <label htmlFor="nombre" className="form-label">Nombre</label>
@@ -49,18 +52,27 @@ export default function Formulario() {
                                className="form-control"
                                placeholder="EJ: Adrian"
                                id="nombre"
-                               {...register("nombre", {
-                                   required: {value: true, message: "Requerido"},
-                                   maxLength: {value: 20, message: "Longitud Maxima 20"},
-                                   minLength: {value: 5, message: "Longitud Minima 5"},
+                               {...register('nombre', {
+                                   maxLength: {value: 20, message: 'Longitud maxima 20'},
+                                   required: {value: true, message: 'Requerido'},
+                                   minLength: {value: 5, message: 'Longitud minima 5'},
                                    validate: {
                                        soloNumeros: (valorActual) => {
+                                           // Transformar a numero un string:
+                                           // Number("1")
+                                           // +"1"
                                            if (Number.isNaN(+valorActual)) {
-                                               return "Ingrese solo números";
+                                               // Se puede devolver un false o un mensaje de error
+                                               // return false; // Error
+                                               return 'Ingrese solo numeros'; // Error
                                            } else {
-                                               return true;
+                                               // Se devuelve un true
+                                               return true; // Esta correcto
                                            }
-                                       }
+                                       },
+                                       // soloLetras: (valorActual) => {
+                                       //     return 'Error de prueba';
+                                       // },
                                    }
                                })}
                                aria-describedby="nombreHelp"/>
@@ -69,86 +81,61 @@ export default function Formulario() {
                         </div>
                         {errors.nombre &&
                             <div className="alert alert-warning" role="alert">
-                                Tiene Errores: {errors.nombre.message}
-                            </div>
-                        }
-                        <FormControl fullWidth/>
-
-                        <InputLabel id="estadoCivilLabelId">Estado Civil</InputLabel>
-
-                        <Controller
-                            control={control}
-                            rules={
-                                {
-                                    required: {value: true, message: "Requerido"}
-                                }
-                            }
-                            name="estadoCivil"
-                            render={({field: {onChange,onBlur, value}}) => {
-                                return <Select
-                                    labelId="estadoCivilLabelId"
-                                    id="estadoCivilId"
-                                    value={value}
-                                    label="Estado Civil"
-                                    onChange={onChange}
-                                    onBlur={onBlur}
-                                >
-                                    <MenuItem value={""}>-Seleccione Uno-</MenuItem>
-                                    <MenuItem value={"casado"}>Casado</MenuItem>
-                                    <MenuItem value={"soltero"}>Soltero</MenuItem>
-                                    <MenuItem value={"divorciado"}>Divorciado</MenuItem>
-
-                                </Select>
-                            }}></Controller>
-                        {errors.estadoCivil &&
-                            <div className="alert alert-warning" role="alert">
-                                Tiene Errores: {errors.estadoCivil.message}
+                                Tiene errores {errors.nombre.message}
                             </div>
                         }
                     </div>
-
-                    <div className={"mb-3"}>
+                    <div className="mb-3">
                         <FormControl fullWidth>
-                            <br/>
-                            <h1>KONSTA UI</h1>
+                            <InputLabel id="estadoCivilLabelId">Estado civil</InputLabel>
                             <Controller
                                 control={control}
-                                rules={{required: {value: true, message: 'TvShow requerido'}}}
-                                name="TvShow"
-                                render={({field: {onChange, onBlur, value}}) => {
-                                    return <List>
-                                        <ListInput
-                                            onChange={onChange}
-                                            onBlur={onBlur}
-                                            label="TV Show"
-                                            type="text"
-                                            placeholder="Your favorite Tv Show"
-                                            info="Type somehing to see"
-                                            media={<Accessibility/>}
-                                        />
-                                    </List>
+                                rules={{ required: {value: true, message: 'Estado C. requerido'}}}
+                                name="estadoCivil"
+                                render={({field: {onChange, value, onBlur,}}) => {
+                                    return <Select
+                                        labelId="estadoCivilLabelId"
+                                        id="estadoCivilId"
+                                        onBlur={onBlur}
+                                        value={value}
+                                        label="Estado Civil"
+                                        onChange={onChange}
+                                    >
+                                        <MenuItem value={'casado'}>Casado</MenuItem>
+                                        <MenuItem value={'soltero'}>Soltero</MenuItem>
+                                    </Select>
                                 }}
                             />
-                            {errors.TvShow &&
-                                <div className={"alert alert-warning"} role={"alert"}>
-                                    Tiene errores {errors.TvShow.message}
+                            {/*Termina controller*/}
+                            {errors.estadoCivil &&
+                                <div className="alert alert-warning" role="alert">
+                                    Tiene errores {errors.estadoCivil.message}
                                 </div>
                             }
                         </FormControl>
                     </div>
-
+                    {/*import AccessibilityIcon from '@mui/icons-material/Accessibility';*/}
+                    <div className="mb-3">
+                        <List>
+                            <ListInput
+                                label="TV Show"
+                                type="text"
+                                placeholder="Your favorite TV show"
+                                info="Type something to see clear button"
+                                media={<AccessibilityIcon/>}
+                            />
+                        </List>
+                    </div>
                     <button type="submit"
-                            className="btn btn-primary"
-                            disabled={!isValid}>
+                            disabled={!isValid}
+                            className="btn btn-primary">
                         Submit
                     </button>
-
                 </form>
-
                 <br/>
-
                 <h1>Formulario con React</h1>
                 <form onSubmit={controlarSubmit}>
+                    {/*<form onSubmit={(e)=>controlarSubmit(e)}>*/}
                     <div className="mb-3">
                         <label htmlFor="nombre" className="form-label">Nombre</label>
                         <input type="text"
@@ -164,9 +151,9 @@ export default function Formulario() {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
-
-
-
+                <h1 className="text-3xl font-bold underline">
+                    Hello world!
+                </h1>
             </Layout>
         </>
     )
